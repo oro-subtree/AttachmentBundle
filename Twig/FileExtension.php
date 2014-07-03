@@ -6,13 +6,13 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Security\Core\Util\ClassUtils;
 
-use Oro\Bundle\AttachmentBundle\Entity\Attachment;
+use Oro\Bundle\AttachmentBundle\Entity\File;
 use Oro\Bundle\AttachmentBundle\Manager\AttachmentManager;
 
 use Oro\Bundle\EntityConfigBundle\Config\ConfigManager;
 use Oro\Bundle\EntityConfigBundle\Provider\ConfigProvider;
 
-class AttachmentExtension extends \Twig_Extension
+class FileExtension extends \Twig_Extension
 {
     const DEFAULT_THUMB_SIZE = 16;
 
@@ -75,7 +75,7 @@ class AttachmentExtension extends \Twig_Extension
      *
      * @param object     $parentEntity
      * @param string     $fieldName
-     * @param Attachment $attachment
+     * @param File       $attachment
      * @param string     $type
      * @param bool       $absolute
      * @return string
@@ -83,7 +83,7 @@ class AttachmentExtension extends \Twig_Extension
     public function getAttachmentUrl(
         $parentEntity,
         $fieldName,
-        Attachment $attachment,
+        File $attachment,
         $type = 'get',
         $absolute = false
     ) {
@@ -93,13 +93,13 @@ class AttachmentExtension extends \Twig_Extension
     /**
      * Get resized attachment image url
      *
-     * @param Attachment $attachment
+     * @param File $attachment
      * @param int        $width
      * @param int        $height
      * @return string
      */
     public function getResizedImageUrl(
-        Attachment $attachment,
+        File $attachment,
         $width = self::DEFAULT_THUMB_SIZE,
         $height = self::DEFAULT_THUMB_SIZE
     ) {
@@ -109,10 +109,10 @@ class AttachmentExtension extends \Twig_Extension
     /**
      * Get attachment icon class
      *
-     * @param Attachment $attachment
+     * @param File $attachment
      * @return string
      */
-    public function getAttachmentIcon(Attachment $attachment)
+    public function getAttachmentIcon(File $attachment)
     {
         return $this->manager->getAttachmentIconClass($attachment);
     }
@@ -123,7 +123,7 @@ class AttachmentExtension extends \Twig_Extension
      * @param \Twig_Environment $environment
      * @param object|string     $parentEntity
      * @param string            $fieldName
-     * @param Attachment        $attachment
+     * @param File              $attachment
      * @return string
      */
     public function getFileView(
@@ -154,7 +154,7 @@ class AttachmentExtension extends \Twig_Extension
      *
      * @param \Twig_Environment $environment
      * @param object            $parentEntity
-     * @param Attachment        $attachment
+     * @param File              $attachment
      * @param string|object     $entityClass
      * @param string            $fieldName
      * @return string
@@ -162,7 +162,7 @@ class AttachmentExtension extends \Twig_Extension
     public function getImageView(
         \Twig_Environment $environment,
         $parentEntity,
-        Attachment $attachment = null,
+        File $attachment = null,
         $entityClass = null,
         $fieldName = ''
     ) {
@@ -195,11 +195,11 @@ class AttachmentExtension extends \Twig_Extension
      *
      * @param object     $parentEntity
      * @param string     $fieldName
-     * @param Attachment $attachment
+     * @param File       $attachment
      *
      * @return string
      */
-    public function getConfiguredImageUrl($parentEntity, $fieldName, Attachment $attachment = null)
+    public function getConfiguredImageUrl($parentEntity, $fieldName, File $attachment = null)
     {
         if (!$attachment) {
             $attachment = PropertyAccess::createPropertyAccessor()->getValue($parentEntity, $fieldName);
@@ -215,7 +215,7 @@ class AttachmentExtension extends \Twig_Extension
         return '';
     }
 
-    public function getFilteredImageUrl(Attachment $attachment, $filterName)
+    public function getFilteredImageUrl(File $attachment, $filterName)
     {
         return $this->manager->getFilteredImageUrl($attachment, $filterName);
     }

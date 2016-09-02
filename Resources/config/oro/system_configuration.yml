@@ -1,4 +1,4 @@
-oro_system_configuration:
+system_configuration:
     groups:
         attachment_settings:
             icon:   icon-file

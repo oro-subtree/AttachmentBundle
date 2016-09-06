@@ -1,4 +1,4 @@
-datagrids:
+datagrid:
     attachment-grid:
         extended_entity_name: %oro_attachment.entity.class%
         source:
